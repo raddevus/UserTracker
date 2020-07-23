@@ -43,13 +43,13 @@ class MainActivity : AppCompatActivity() {
         signOutButton = findViewById(R.id.signOutbutton) as Button
         userTextView = findViewById(R.id.userTextView) as TextView
 
-        signInButton!!.setOnClickListener {
+        signInButton?.setOnClickListener {
             Log.d("MainActivity", "sign-in button clicked.")
             OneLoginOIDC.initialize(this.applicationContext,config)
             oidcClient = OneLoginOIDC.getClient()
 
             Log.d("MainActivity", "got client...")
-            oidcClient!!.signIn(this,object : Callback<SignInSuccess, SignInError> {
+            oidcClient?.signIn(this,object : Callback<SignInSuccess, SignInError> {
                 override fun onSuccess(success: SignInSuccess) {
                     // The user has been authenticated successfully,
                     // the `success` param will contain the `SessionInfo` with the tokens ready to be used
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             });
         }
 
-        signOutButton!!.setOnClickListener {
+        signOutButton?.setOnClickListener {
             Log.d("MainActivity", "sign-out button clicked")
             // insure oidcClient is initialized
             if (oidcClient == null){
@@ -75,10 +75,10 @@ class MainActivity : AppCompatActivity() {
 
             Log.d("MainActivity", "initialized")
             try {
-                oidcClient!!.revokeToken(object : Callback<RevokeSuccess, RevokeError> {
+                oidcClient?.revokeToken(object : Callback<RevokeSuccess, RevokeError> {
                     override fun onSuccess(success: RevokeSuccess) {
                         Log.d("MainActivity", "token: $success.sessionInfo.idToken");
-                        userTextView!!.setText("");
+                        userTextView?.setText("");
                     }
 
                     override fun onError(error: RevokeError) {
@@ -94,10 +94,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun displayUserName(oidcClient: OIDCClient?){
-        oidcClient!!.getUserInfo(object : Callback<UserInfo,UserInfoError>{
+        oidcClient?.getUserInfo(object : Callback<UserInfo,UserInfoError>{
             override fun onSuccess(success: UserInfo) {
                 Log.d("MainActivity","${success.name} : ${success}")
-                userTextView!!.setText("${success.name}")
+                userTextView?.setText("${success.name}")
             }
             override fun onError(error: UserInfoError){
                 Log.d("MainActivity", "info error")
