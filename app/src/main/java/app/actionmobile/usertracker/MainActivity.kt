@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val config = OIDCConfiguration.Builder()
             .clientId("dab1c550-af23-0138-a003-0615bd700714174077")
             .issuer("https://actionmobile-dev.onelogin.com/oidc/2")
-            .redirectUrl("https://actionmobile.app://callback")
+            .redirectUrl("app.actionmobile.usertracker://callback")
             .scopes(listOf("openid"))
             .isDebug(true)
             .build()
