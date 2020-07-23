@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        requestAllPermissions()
-
         val config = OIDCConfiguration.Builder()
             .clientId("32044570-ad95-0138-e94b-0ac5d5c515b4173933")
             .issuer("https://actionmobile-dev.onelogin.com/oidc/2")
@@ -52,16 +50,4 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-    private fun requestAllPermissions() {
-        val permission: String = Manifest.permission.INTERNET
-        val grant = ContextCompat.checkSelfPermission(this, permission)
-        Log.d("MainActivity", "permission granted? : $grant - Permission_Granted: ${PackageManager.PERMISSION_GRANTED}")
-        if (grant != PackageManager.PERMISSION_GRANTED) {
-            val permission_list = arrayOfNulls<String>(1)
-            permission_list[0] = permission
-            ActivityCompat.requestPermissions(this, permission_list, 1)
-        }
-    }
-
 }
