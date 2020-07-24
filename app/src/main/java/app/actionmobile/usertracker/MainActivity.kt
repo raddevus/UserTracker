@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.onelogin.oidc.Callback
+import com.onelogin.oidc.OIDCClient
 import com.onelogin.oidc.OIDCConfiguration
 import com.onelogin.oidc.OneLoginOIDC
 import com.onelogin.oidc.login.SignInError
@@ -16,6 +17,7 @@ import com.onelogin.oidc.login.SignInSuccess
 
 class MainActivity : AppCompatActivity() {
     var signInButton : Button? = null
+    var oidcClient : OIDCClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         signInButton = findViewById(R.id.signInButton) as Button
 
-        signInButton!!.setOnClickListener {
+        signInButton?.setOnClickListener {
             Log.d("MainActivity", "sign-in button clicked.")
             OneLoginOIDC.initialize(this.applicationContext,config)
-            val oidcClient = OneLoginOIDC.getClient()
+            oidcClient = OneLoginOIDC.getClient()
             Log.d("MainActivity", "got client...")
-            oidcClient.signIn(this,object : Callback<SignInSuccess, SignInError> {
+            oidcClient?.signIn(this,object : Callback<SignInSuccess, SignInError> {
                 override fun onSuccess(success: SignInSuccess) {
                     // The user has been authenticated successfully,
                     // the `success` param will contain the `SessionInfo` with the tokens ready to be used
